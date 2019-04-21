@@ -1,3 +1,3 @@
 ## 学习typescript
 
-### typescript的类型
+typescript的类型
