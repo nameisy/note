@@ -4,21 +4,15 @@
 
 1. DOM 的本质是什么？
 
-	`
-	   浏览器中的概念，用 js 对象表示页面上的元素，并提供了操作 DOM 的 api
-	`
+   `浏览器中的概念，用 js 对象表示页面上的元素，并提供了操作 DOM 的 api`
 
 2. React 中虚拟 DOM
 
-	`
-	   用 js 对象模拟页面中的 DOM 和 DOM 嵌套
-	`
+   `用 js 对象模拟页面中的 DOM 和 DOM 嵌套`
 
 3. 为什么要使用虚拟 DOM
 
-	`
-	   为了实现页面中 DOM 的高效更新
-	`
+   `为了实现页面中 DOM 的高效更新`
 
 ### 二. DOM 树的概念（一个网页的呈现过程）
 
@@ -90,11 +84,11 @@ var div = [
 
 2. 在项目下创建几个文件夹
 
-```
+```html
 dist   // 打包
-src
-  |—index.html
-	|—index.js
+src 
+	|—index.html 
+	|—index.js 
 package.json
 ```
 
@@ -103,7 +97,9 @@ package.json
 4. 配置 webpack(新建 webpack.config.js)
 
 ```html
-module.exports = { mode : "development" // 环境 开发 测试 }
+	module.exports = { 
+		mode : "development" // 环境 开发 测试 
+	}
 ```
 
 注： 在 webapck 4.x 中约定大于配置 约定默认的打包入口路径是 src 下的 index.js,所以在不规定入口的情况下默认是 index.js.
