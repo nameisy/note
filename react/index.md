@@ -140,5 +140,5 @@ module.exports = {
 ```
 
 3. 运行 （npm run dev）
-   =>. 打开本地是 index.html
-   =>. html-webpack-plugin 自动引入 .js 文件
+   <1> 打开本地是 index.html
+   <2> html-webpack-plugin 自动引入 .js 文件
