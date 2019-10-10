@@ -21,15 +21,15 @@
 
 ps:
 
-```
+```html
 <div id="boxwrap" name="boxwrap">
-	<span class="box">哈哈</span>
+  <span class="box">哈哈</span>
 </div>
 ```
 
 使用 js 对象的形式模拟页面 DOM 结构，通过对比判断实现高效的更新
 
-```
+```javascript
 var div = [
 	tarName : "div",
 	attrs : {
@@ -72,3 +72,73 @@ var div = [
 =>element diff
 	在进行组件级别的对比的时候，如果有两个组件类型相同则需要进行元素级别的对比
 ```
+
+# 使用 webpack 4.x 创建项目
+
+### 一. 使用 webpack 构建项目
+
+1. 运行 npm init -y 快速初始化项目（生成 package.json）
+
+2. 在项目下创建几个文件夹
+
+```
+dist   // 打包
+src
+    |—index.html
+		|—index.js
+package.json
+```
+
+3. 安装 webpack webpack-cli (npm i webpack webpack-cli -D)
+
+4. 配置 webpack(新建 webpack.config.js)
+
+```html
+module.exports = { mode : "development" // 环境 开发 测试 }
+```
+
+注： 在 webapck 4.x 中约定大于配置 约定默认的打包入口路径是 src 下的 index.js,所以在不规定入口的情况下默认是 index.js.
+
+### 二. webpack-dev-server 的使用
+
+1. 安装 （npm i webpack-dev-server -D）
+
+2. 使用 （在 package.json 中）
+
+```json
+"scripts" : {
+		"dev" : "webpack-dev-server"
+}
+```
+
+3. 运行 （npm run dev）
+
+```html
+扩展： "dev" : "webpack-dev-server --open --port --host" --open //
+运行时打开浏览器 默认打开默认浏览器 --port // 端口号 默认8080 --host // 域名
+默认localhost
+```
+
+### 三. html-webpack-plugin 插件
+
+作用: 运行时打开指定的入口文件
+
+1. 安装 （npm i html-webpack-plugin -D）
+2. 使用 （在 webpack.config.js 中配置）
+
+```javascript
+const path = require('path')
+const htmlWebpackPlugin = require('html-webpack-plugin')
+const htmlPlugin = new htmlWebpackPlugin({
+  template: path.join(__dirname, './src/index.html'), // 路径
+  filename: 'index.html'
+})
+module.exports = {
+  mode: 'development',
+  plugins: [htmlPlugin]
+}
+```
+
+3. 运行 （npm run dev）
+   1. 打开本地是 index.html
+   2. html-webpack-plugin 自动引入 .js 文件
