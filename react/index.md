@@ -75,7 +75,7 @@ var div = [
 
 ```
 => tree diff
-     	将树形结构安装层级分解，逐层比较
+    将树形结构安装层级分解，逐层比较
 => component diff
 	在进行逐层对比（tree diff）时，对于每一层组件级别的对比
 =>element diff
@@ -94,7 +94,7 @@ var div = [
 dist   // 打包
 src
     |—index.html
-		|—index.js
+	|—index.js
 package.json
 ```
 
@@ -116,7 +116,7 @@ module.exports = { mode : "development" // 环境 开发 测试 }
 
 ```json
 "scripts" : {
-		"dev" : "webpack-dev-server"
+	"dev" : "webpack-dev-server"
 }
 ```
 
