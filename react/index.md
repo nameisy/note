@@ -273,24 +273,24 @@ ReactDOM.reander(str,document.getElementById("root))
 ###  react中使用JSX
 - 安装babel插件
 ```
-    运行 yarn add babel-core babel-loader babel-plugin-transform-runtime -D
-    运行 yarn add babel-preset-env babel-preset-stage-0 -D
-    运行 yarn add babel-preset-react -D
+  运行 yarn add babel-core babel-loader babel-plugin-transform-runtime -D
+  运行 yarn add babel-preset-env babel-preset-stage-0 -D
+  运行 yarn add babel-preset-react -D
 ```
 - 添加 .babelrc 配置文件
 ```
-    {
-      "presets": ["env", "stage-0", "react"],
-      "plugins": ["transform-runtime"]
-    }
+  {
+    "presets": ["env", "stage-0", "react"],
+    "plugins": ["transform-runtime"]
+  }
 ```
 - 在webpack.config.js中添加babel-loader配置项：
 ```
-    module: { //要打包的第三方模块
-      rules: [
-        { test: /\.js|jsx$/, use: 'babel-loader', exclude: /node_modules/ }
-      ]
-    }
+  module: { //要打包的第三方模块
+    rules: [
+      { test: /\.js|jsx$/, use: 'babel-loader', exclude: /node_modules/ }
+    ]
+  }
 ```
 ### JSX语法
 + jsx语法本质上还是以React.createElements的形式实现的，并没有把用户写的HTML渲染到页面上
@@ -306,33 +306,87 @@ ReactDOM.render(
 ```
 + jsx中 
 ```
-class ---> className
-for ---->htmlFor
+  class ---> className
+  for ---->htmlFor
 ```
 + jsx 最外层有一个跟元素包含
 ```javascript
-ReactDOM.reander(
-<div>
-  {/* 必须有一个根元素 */}
-</div>
-)
+  ReactDOM.reander(
+    <div>
+      {/* 必须有一个根元素 */}
+    </div>,document.getElementById("root")
+  )
 ```
 + jsx 中的注释放在{}
 ```javascript
-{
-  // 这是注释
-}
+  {
+    // 这是注释
+  }
 ```
 + jsx 中只用循环（map 方法）
 ```javascript
-var arr = ['1','2','3','4']
-ReactDOM.reander(
-    <div>
-        {
-            arr.map((item,index) => {
-                return <p key={index}>{item}</p>
-            })
-        }
-    </div>,document.getElementById("root")
-)
+  var arr = ['1','2','3','4']
+  ReactDOM.reander(
+      <div>
+          {
+              arr.map((item,index) => {
+                  return <p key={index}>{item}</p>
+              })
+          }
+      </div>,document.getElementById("root")
+  )
 ```
+
+# 创建最基本的组件
++ 创建组件的两中方式
+```javascript
+// 使用function创建一个组件
+function Header() {
+	retrun <div>头部组件<div>
+}
+// 使用class创建一个组件
+import react form "react"
+class Header extends React.Component {
+	render() {
+		retrun <div>头部组件<div>
+	}
+}
+```
++ 组件传值（`通过属性的方式传值 props`）
+父组件
+```javascript
+	import React from "react"
+	import ReactDOM from 'react-dom'
+	import "./css/index.scss"
+	// header 组件
+	import Header from "./components/Header.js"
+
+
+	ReactDOM.render(
+		<div className="demo-wrap">
+			<Header className="demo-header" />
+		</div>
+	,document.getElementById("root"))
+```
+子组件
+```javascript
+import React from "react"
+// 使用classs的方式
+class Header extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <h1 className={this.props.className}>this is my react-demo header</h1>;
+  }
+}
+export default Header
+
+// 使用function的方式
+function Header(props) {
+	return <h1 className={props.className}>this is my react-demo header</h1>
+}
+export default Header
+```
+
+
