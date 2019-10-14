@@ -16,9 +16,9 @@
 
 ### 二. DOM 树的概念（一个网页的呈现过程）
 
-1. 浏览器请求服务器获取页面的 HTML 代码
-2. 浏览器在内存中解析 DOM 结构，并在浏览器内存中渲染出一颗 DOM 树
-3. 浏览器将 DOM 树呈现到页面上
++ 浏览器请求服务器获取页面的 HTML 代码
++ 浏览器在内存中解析 DOM 结构，并在浏览器内存中渲染出一颗 DOM 树
++ 浏览器将 DOM 树呈现到页面上
 
 ### 三. 如何虚拟一个 DOM 元素
 
@@ -69,7 +69,7 @@ var div = [
 
 ```
 => tree diff
-  将树形结构安装层级分解，逐层比较
+    将树形结构安装层级分解，逐层比较
 => component diff
 	在进行逐层对比（tree diff）时，对于每一层组件级别的对比
 =>element diff
@@ -128,8 +128,8 @@ package.json
 
 作用: 运行时打开指定的入口文件
 
-1. 安装 （npm i html-webpack-plugin -D）
-2. 使用 （在 webpack.config.js 中配置）
+- 安装 （npm i html-webpack-plugin -D）
+- 使用 （在 webpack.config.js 中配置）
 
 ```javascript
 const path = require('path')
@@ -140,13 +140,107 @@ const htmlPlugin = new htmlWebpackPlugin({
 })
 module.exports = {
   mode: 'development',
+  entry: path.join(__dirname, "./src/main.jsx"), // 入口
+  output: {
+        path: path.resolve(__dirname, "./dist"), // 出口
+        filename: "js/bundle.js"
+    },
   plugins: [htmlPlugin]
 }
 ```
 
-3. 运行 （npm run dev）
+- 运行 （npm run dev）
 
 ```
   打开本地是 index.html
   html-webpack-plugin 自动引入 .js 文件
+``` 
+### 四. 其他插件
++ extract-text-webpack-plugin         `抽取CSS样式文件`
++ optimize-css-assets-webpack-plugin    `压缩CSS文件`
++ clean-webpack-plugin   `打包前删除以前打包的内容`
+
+###  五. 抽离第三方包
+```json
+optimization: { //第三方库抽离
+	splitChunks: {
+		cacheGroups: {
+			commons: {
+				test: /[\\/]node_modules[\\/]/,
+				name: 'vendors',
+				chunks: 'all'
+			}
+		}
+	}
+},
+```
+### 六. webpack 基本配置
+```json
+const path = require("path");
+const htmlWebpackPlugin = require("html-webpack-plugin"); //创建html入口文件  压缩html代码
+const ExtractTextPliugin = require("extract-text-webpack-plugin") // 抽取CSS样式文件
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin"); // 压缩CSS文件
+const TerserPlugin = require('terser-webpack-plugin'); // 代码压缩
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // 打包前删除以前打包的内容
+
+module.exports = {
+    mode: "development",
+    entry: path.join(__dirname, "./src/main.jsx"), // 入口
+    output: {
+        path: path.resolve(__dirname, "./dist"), // 出口
+        filename: "js/bundle.js"
+    },
+    optimization: { //第三方库抽离
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all'
+                }
+            }
+        },
+        minimizer : [new TerserPlugin({ /* additional options here */ })],
+    },
+    plugins: [
+        new htmlWebpackPlugin({ //创建html入口文件  压缩html代码
+            template: path.join(__dirname, "./src/index.html"),
+            filename: "index.html",
+            minify : {
+                collapseWhitespace : "true" 
+            }
+        }),
+        new CleanWebpackPlugin(), // 打包前删除第三方包
+        new ExtractTextPliugin("css/style.css"), // 抽离CSS
+        new OptimizeCSSAssetsPlugin() // 压缩CSS
+    ],
+    module: {
+        rules: [{ // 启用sass jsx
+                test: /\.css$/,
+                use: ExtractTextPliugin.extract({
+                    fallback : "style-loader",
+                    use : "css-loader",
+                    publicPath : "../"
+                })
+            },
+            {
+                test: /\.scss$/,
+                use: ExtractTextPliugin.extract({
+                    fallback : "style-loader",
+                    use : ["css-loader", "sass-loader"],
+                    publicPath : "../"
+                })
+            },
+            {
+                test: /\.(png|gif|bmp|jpg)$/,
+                use: "url-loader?limit=5000"
+            },
+            {
+                test: /\.js|jsx$/,
+                use: 'babel-loader',
+                exclude: /node_modules/
+            }
+        ]
+    }
+}
 ```
