@@ -69,11 +69,11 @@ var div = [
 
 ```
 => tree diff
-    将树形结构安装层级分解，逐层比较
+  将树形结构安装层级分解，逐层比较
 => component diff
-	在进行逐层对比（tree diff）时，对于每一层组件级别的对比
-=>element diff
-	在进行组件级别的对比的时候，如果有两个组件类型相同则需要进行元素级别的对比
+  在进行逐层对比（tree diff）时，对于每一层组件级别的对比
+=> element diff
+  在进行组件级别的对比的时候，如果有两个组件类型相同则需要进行元素级别的对比
 ```
 
 # 使用 webpack 4.x 创建项目
@@ -87,8 +87,8 @@ var div = [
 ```html
 dist   // 打包
 src 
-	|—index.html 
-	|—index.js 
+  |—index.html 
+  |—index.js 
 package.json
 ```
 
@@ -97,9 +97,9 @@ package.json
 4. 配置 webpack(新建 webpack.config.js)
 
 ```html
-	module.exports = { 
-		mode : "development" // 环境 开发 测试 
-	}
+module.exports = { 
+  mode : "development" // 环境 开发 测试 
+}
 ```
 
 注： 在 webapck 4.x 中约定大于配置 约定默认的打包入口路径是 src 下的 index.js,所以在不规定入口的情况下默认是 index.js.
@@ -112,7 +112,7 @@ package.json
 
 ```json
 "scripts" : {
-	"dev" : "webpack-dev-server"
+  "dev" : "webpack-dev-server"
 }
 ```
 
@@ -142,9 +142,9 @@ module.exports = {
   mode: 'development',
   entry: path.join(__dirname, "./src/main.jsx"), // 入口
   output: {
-        path: path.resolve(__dirname, "./dist"), // 出口
-        filename: "js/bundle.js"
-    },
+    path: path.resolve(__dirname, "./dist"), // 出口
+    filename: "js/bundle.js"
+  },
   plugins: [htmlPlugin]
 }
 ```
@@ -163,15 +163,15 @@ module.exports = {
 ###  五. 抽离第三方包
 ```javascript
 optimization: { //第三方库抽离
-	splitChunks: {
-		cacheGroups: {
-			commons: {
-				test: /[\\/]node_modules[\\/]/,
-				name: 'vendors',
-				chunks: 'all'
-			}
-		}
+  splitChunks: {
+	cacheGroups: {
+	  commons: {
+		test: /[\\/]node_modules[\\/]/,
+		name: 'vendors',
+		chunks: 'all'
+	  }
 	}
+  }
 },
 ```
 ### 六. webpack 基本配置
@@ -257,15 +257,15 @@ module.exports = {
 import React from "react"
 import ReactDOM from 'react-dom'
 /*
-	参数1：创建元素的类型
-	参数2:  一个对象，表示当前DOM的属性
-	参数3：子节点
+  参数1：创建元素的类型
+  参数2:  一个对象，表示当前DOM的属性
+  参数3：子节点
 */
 const str = React.createElement("h1",{name:"header"},"哈哈")
 // 使用ReactDOM将虚拟DOM渲染到页面
 /*
-	参数1 ： 需要渲染的虚拟DOM
-	参数2 ： 指定的页面容器
+  参数1 ： 需要渲染的虚拟DOM
+  参数2 ： 指定的页面容器
 */
 ReactDOM.reander(str,document.getElementById("root))
 ```
@@ -280,16 +280,16 @@ ReactDOM.reander(str,document.getElementById("root))
 - 添加 .babelrc 配置文件
 ```
     {
-        "presets": ["env", "stage-0", "react"],
-        "plugins": ["transform-runtime"]
+      "presets": ["env", "stage-0", "react"],
+      "plugins": ["transform-runtime"]
     }
 ```
 - 在webpack.config.js中添加babel-loader配置项：
 ```
     module: { //要打包的第三方模块
-        rules: [
-            { test: /\.js|jsx$/, use: 'babel-loader', exclude: /node_modules/ }
-        ]
+      rules: [
+        { test: /\.js|jsx$/, use: 'babel-loader', exclude: /node_modules/ }
+      ]
     }
 ```
 ### JSX语法
@@ -298,41 +298,41 @@ ReactDOM.reander(str,document.getElementById("root))
 + 在编译的时候遇到 `"<"` 开头的就会把它当成HTML来编译，遇到`"{}"`就会当成JS代码来编译
 + {} 中可以写任何JS规范代码
 ```javascript
-    ReactDOM.render(
-        <div>
-            {isShow ? "显示" ： "隐藏"}
-        </div>,document.getElementById("root")
-    )
+ReactDOM.render(
+  <div>
+    {isShow ? "显示" ： "隐藏"}
+  </div>,document.getElementById("root")
+)
 ```
 + jsx中 
 ```
-    class ---> className
-    for ---->htmlFor
+class ---> className
+for ---->htmlFor
 ```
 + jsx 最外层有一个跟元素包含
 ```javascript
-    ReactDOM.reander(
-        <div>
-            {/* 必须有一个根元素 */}
-        </div>
-    )
+ReactDOM.reander(
+<div>
+  {/* 必须有一个根元素 */}
+</div>
+)
 ```
 + jsx 中的注释放在{}
 ```javascript
-    {
-        // 这是注释
-    }
+{
+  // 这是注释
+}
 ```
 + jsx 中只用循环（map 方法）
 ```javascript
-    var arr = ['1','2','3','4']
-    ReactDOM.reander(
-        <div>
-            {
-                arr.map((item,index) => {
-                    return <p key={index}>{item}</p>
-                })
-            }
-        </div>,document.getElementById("root")
-    )
+var arr = ['1','2','3','4']
+ReactDOM.reander(
+    <div>
+        {
+            arr.map((item,index) => {
+                return <p key={index}>{item}</p>
+            })
+        }
+    </div>,document.getElementById("root")
+)
 ```
