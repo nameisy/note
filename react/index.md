@@ -161,7 +161,7 @@ module.exports = {
 + clean-webpack-plugin   `打包前删除以前打包的内容`
 
 ###  五. 抽离第三方包
-```json
+```javascript
 optimization: { //第三方库抽离
 	splitChunks: {
 		cacheGroups: {
@@ -175,7 +175,7 @@ optimization: { //第三方库抽离
 },
 ```
 ### 六. webpack 基本配置
-```json
+```javascript
 const path = require("path");
 const htmlWebpackPlugin = require("html-webpack-plugin"); //创建html入口文件  压缩html代码
 const ExtractTextPliugin = require("extract-text-webpack-plugin") // 抽取CSS样式文件
@@ -244,3 +244,4 @@ module.exports = {
     }
 }
 ```
+
