@@ -161,7 +161,7 @@ module.exports = {
 + clean-webpack-plugin   `打包前删除以前打包的内容`
 
 ###  五. 抽离第三方包
-```json
+```javascript
 optimization: { //第三方库抽离
 	splitChunks: {
 		cacheGroups: {
@@ -253,7 +253,7 @@ module.exports = {
 + 在index.html 中创建容器
 	- `<div id="root"></div>`
 + 使用react创建
-```json
+```javascript
 import React from "react"
 import ReactDOM from 'react-dom'
 /*
@@ -271,52 +271,68 @@ ReactDOM.reander(str,document.getElementById("root))
 ```
 # JSX语法的学习
 ###  react中使用JSX
-	- 安装babel插件
-	      运行 yarn add babel-core babel-loader babel-plugin-transform-runtime -D
-		  运行 yarn add babel-preset-env babel-preset-stage-0 -D
-		  运行 yarn add babel-preset-react -D
-	- 添加 .babelrc 配置文件
-			{
-				"presets": ["env", "stage-0", "react"],
-				"plugins": ["transform-runtime"]
-			}
-	- 在webpack.config.js中添加babel-loader配置项：
-			module: { //要打包的第三方模块
-				rules: [
-					{ test: /\.js|jsx$/, use: 'babel-loader', exclude: /node_modules/ }
-				]
-			}
+- 安装babel插件
+```
+    运行 yarn add babel-core babel-loader babel-plugin-transform-runtime -D
+    运行 yarn add babel-preset-env babel-preset-stage-0 -D
+    运行 yarn add babel-preset-react -D
+```
+- 添加 .babelrc 配置文件
+```
+    {
+        "presets": ["env", "stage-0", "react"],
+        "plugins": ["transform-runtime"]
+    }
+```
+- 在webpack.config.js中添加babel-loader配置项：
+```
+    module: { //要打包的第三方模块
+        rules: [
+            { test: /\.js|jsx$/, use: 'babel-loader', exclude: /node_modules/ }
+        ]
+    }
+```
 ### JSX语法
-		+ jsx语法本质上还是以React.createElements的形式实现的，并没有把用户写的HTML渲染到页面上
-		+ jsx中书写JS代码使用 {}
-		+ 在编译的时候遇到 `"<"` 开头的就会把它当成HTML来编译，遇到`"{}"`就会当成JS代码来编译
-		+ {} 中可以写任何JS规范代码
-				ReactDOM.render(
-					<div>
-						{isShow ? "显示" ： "隐藏"}
-					</div>,document.getElementById("root")
-				)
-		+ jsx中 
-				class ---> className
-				for ---->htmlFor
-		+ jsx 最外层有一个跟元素包含
-				ReactDOM.reander(
-					<div>
-						{/* 必须有一个根元素 */}
-					</div>
-				)
-		+ jsx 中的注释放在{}
-				{
-					// 这是注释
-				}
-		+ jsx 中只用循环（map 方法）
-				var arr = ['1','2','3','4']
-				ReactDOM.reander(
-					<div>
-						{
-							arr.map((item,index) => {
-								return <p key={index}>{item}</p>
-							})
-						}
-					</div>,document.getElementById("root")
-				)
++ jsx语法本质上还是以React.createElements的形式实现的，并没有把用户写的HTML渲染到页面上
++ jsx中书写JS代码使用 {}
++ 在编译的时候遇到 `"<"` 开头的就会把它当成HTML来编译，遇到`"{}"`就会当成JS代码来编译
++ {} 中可以写任何JS规范代码
+```javascript
+    ReactDOM.render(
+        <div>
+            {isShow ? "显示" ： "隐藏"}
+        </div>,document.getElementById("root")
+    )
+```
++ jsx中 
+```
+    class ---> className
+    for ---->htmlFor
+```
++ jsx 最外层有一个跟元素包含
+```javascript
+    ReactDOM.reander(
+        <div>
+            {/* 必须有一个根元素 */}
+        </div>
+    )
+```
++ jsx 中的注释放在{}
+```javascript
+    {
+        // 这是注释
+    }
+```
++ jsx 中只用循环（map 方法）
+```javascript
+    var arr = ['1','2','3','4']
+    ReactDOM.reander(
+        <div>
+            {
+                arr.map((item,index) => {
+                    return <p key={index}>{item}</p>
+                })
+            }
+        </div>,document.getElementById("root")
+    )
+```
