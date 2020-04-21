@@ -49,7 +49,7 @@ this.props.navigation.navigate 方法可以传递参数到下一个页面，如�
       onPress={() =>
         this.props.navigation.navigate('Details', {
           newsId: 'lk001',
-          newsName: '撩课1号文件',
+          newsName: 'demo1号文件',
           newsTag: '重要'
         })
       }
@@ -108,7 +108,7 @@ static navigationOptions = {
 ```
 static navigationOptions = ({navigation}) => {
      return {
-        title : navigation.getParam("subTitle","撩课学院")
+        title : navigation.getParam("subTitle","demo学院")
      }
 }
 ```
