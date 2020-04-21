@@ -6,7 +6,7 @@
 ```
 React Native已经完成了对多端的支持，实现了真正意义上的面向配置开发: 开发人员可以只使用JavaScript也能编写原生移动，结合React语法构建组件，实现：**Android, iOS 两端代码的复用**，并发布上线。
 
-![ReactNative架构图](./img01.jpg)
+![ReactNative架构图](./images/img01.jpg)
 
  React Native产出的并不是“网页应用”， 或者说“HTML5应用”，又或者“混合应用”，而是一个真正的移动应用，从使用感受上和用Objective-C或Java编写的应用相比几乎是无法区分的。
 
@@ -27,7 +27,7 @@ React Native已经完成了对多端的支持，实现了真正意义上的面�
 ######3）learn once，write everywhere（最具魅力）
  React Native不强求一份原生代码支持多个平台，所以不是“Write once, run anywhere”（Java），而是“Learn once, write anywhere”。
 
-![React Native上层架构图](./img02.png)
+![React Native上层架构图](./images/img02.png)
 
 ####三、React Native开发注意事项
  React Native所需要的技术栈比较多，需要良好的JavaScript功底，最好还需要懂一些iOS和Android原生开发，才能很好驾驭中大型移动端跨平台项目。初学者使用RN开发项目，建议选择：
